@@ -1,20 +1,25 @@
-<html>
-
-<head>
-	<title>Wiimmfi test</title>
-</head>
-
-<body style="background:#000000; color:#ffffff; padding: 1em; font-size: 1.2em;"> 
-	<script>
-		var a = "?a" == document.location.search && "#a" != document.location.hash;
-		var b = "#a" != document.location.hash
-		var b = "#a" != document.location.hash;
-		var c = '<h1>Wiimmfi Patcher</h1><p>The Wiimmfi Patcher is now running. By using this service you agree to the terms and conditions. If the Wii gets stuck for a minute or you see an error then it may have gone wrong and you should hold the power button on the console for 4 seconds to turn it off, and try again.</p><h2>Patcher Status</h2><object data="exploit.swf" width=550 height=40 style="border-width: 2px; border-color: #333333; border-style: solid;"><param name="allowScriptAccess" value="sameDomain"></object>';
-		if (a) document.body.innerHTML = c;
-		else if (b) document.location = "index.html?a#a";
-		else document.body.innerHTML = '<img style="float: right; width: 108px; height: 120px" src="wiimmfi-dark.png" /><h1>Wiimmfi Patcher</h1><p>Welcome to the automatic Wiimmfi Patcher!</p><p>This web page will allow you to access Wiimmfi. By using this service you agree to the terms and conditions at the bottom of this page. Just follow the steps below to get started.</p><ol><li>Make sure your Wii is in 60Hz mode in the system settings.</li><li>Add this page to your favourites by clicking the star icon below and pressing the "Add Favorite" button.</li><li>Press the home button on your Wiimote and return to the Wii Menu.</li><li>Start the Internet Channel again and go to your favourites.</li><li>Click on "Wiimmfi" and wait for the game to start!</li></ol><h2>Credits</h2><dl><dt>FlashHax Exploit</dt><dd>Fullmetal5</dd><dt>ELF Loader</dt><dd>Segher Boessenkool</dd><dt>Wiimmfi</dt><dd>Wiimm and Leseratte</dd><dt>Patcher</dt><dd>MrBean35000vr, Chadderz and Leseratte</dd></dl><h2>Terms and Conditions</h2><p>This service is provided in good faith but with absolutley no warranty of any kind, expressed or implied. In no event shall the authors be held responsible for any damage, direct or indirect, that results from the use of this service.</p><p>This service is not licensed or endorsed by Nintendo.</p><p>By using this service you agree to allow this website to send an exploit to your console which will cause it to run unsigned code necessary for this service to function.</p><p>The Wiimmfi patcher which will be run by following the steps above contains some third-party libraries. Click <a href="wiimmfi_patcher_license.txt" style="color:white; !important"><b>this link</b></a> to view the license for these libraries.</p>';
-	</script>
-</body>
-
-
+﻿<html>
+	<head>
+		<title>FlashHax</title>
+		<style>
+			body {
+				background-color: #4b9dbc;
+			}
+		</style>
+	</head>
+	<body>
+		<script>
+			var shouldRunHax = document.location.search == "?hax" && document.location.hash != "#stop";
+			var shouldReload = document.location.hash != "#stop";
+			var isJP = (navigator.userAgent.indexOf("ja") == -1) ? false : true;
+			var FlashHax = '<object data="menu.swf"><param name="allowScriptAccess" value="always"><param name="FlashVars" value="isJP=' + isJP + '"></object>';
+			if (shouldRunHax){
+				document.body.innerHTML += FlashHax;
+			}else if (shouldReload){
+				document.location = "?hax#stop";
+			}else{
+				document.body.innerHTML += "<center><br><br><h1>Please bookmark this page now</h1></center>";
+			}
+		</script>
+	</body>
 </html>
