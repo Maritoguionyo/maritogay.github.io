@@ -1,27 +1,26 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <script>
-      function fetchData() {
-        fetch("http://stats.newwfc.xyz/json")
-          .then((response) => response.json())
-          .then((data) => {
-            var players = data.mariokartwii;
-            var vsPlayers = [];
-            var otherPlayers = [];
-            for (var i = 0; i < players.length; i++) {
-              if (players[i].rk === "vs") {
-                vsPlayers.push(players[i].dwc_pid);
-              } else {
-                otherPlayers.push(players[i].dwc_pid);
-              }
+        function fetchData(data) {
+            var playersOnline = data.mariokartwii;
+            var playersVS = [];
+            var playersOther = [];
+            for (var i = 0; i < playersOnline.length; i++) {
+                if (playersOnline[i].rk == "vs") {
+                    playersVS.push(playersOnline[i].dwc_pid);
+                } else {
+                    playersOther.push(playersOnline[i].dwc_pid);
+                }
             }
-            console.log("VS players: " + vsPlayers);
-            console.log("Other players: " + otherPlayers);
-          });
-      }
+            document.getElementById("players-vs").innerHTML = "Players in a VS race: " + playersVS.join(", ");
+            document.getElementById("players-other").innerHTML = "Other players: " + playersOther.join(", ");
+        }
     </script>
-  </head>
-  <body onload="fetchData()">
-  </body>
+    <script src="http://stats.newwfc.xyz/json?callback=fetchData"></script>
+</head>
+<body>
+    <div id="players-vs"></div>
+    <div id="players-other"></div>
+</body>
 </html>
