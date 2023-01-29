@@ -1,31 +1,49 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <script>
-      function fetchData() {
-        fetch("http://upgamers.ga:8080/http://stats.newwfc.xyz/json")
-          .then((response) => response.json())
-          .then((data) => {
-            var players = data.mariokartwii;
-            var vsPlayers = [];
-            var friendRoomPlayers = [];
-            var otherPlayers = [];
-            for (var i = 0; i < players.length; i++) {
-              if (players[i].rk === "vs") {
-                vsPlayers.push(players[i].dwc_pid);
-              } else if (players[i].dwc_mtype === "2") {
-                friendRoomPlayers.push(players[i].dwc_pid);
-              } else {
-                otherPlayers.push(players[i].dwc_pid);
-              }
-            }
-            console.log("VS players: " + vsPlayers);
-            console.log("Friend Room players: " + friendRoomPlayers);
-            console.log("Other players: " + otherPlayers);
-          });
-      }
-    </script>
-  </head>
-  <body onload="fetchData()">
-  </body>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $.getJSON("http://upgamers.ga:8080/http://stats.newwfc.xyz/json", function(data){
+    var html = "";
+    for (var i = 0; i < data.length; i++) {
+      html += "<tr id='r" + data[i].id + "'><th class='tc' colspan='9'>" + data[i].name + " <a href='" + data[i].link + "'>" + data[i].code + "</a> (created " + data[i].created_time + " ago), " + data[i].races + " races (last start " + data[i].last_start + " ago) &nbsp; <a href='" + data[i].link + "'><img src='" + data[i].image + "' class='text-img'></a></th></tr>";
+      html += "<tr>";
+      html += "<th>friend code</th>";
+      html += "<th title='Console index (1..12) and role of player'>role</th>";
+      html += "<th>login<br/>region</th><th>room,<br/>match</th>";
+      html += "<th title='Own world for custom regions'>world</th>";
+      html += "<th title='Number of failed connections.";
+      html += "Each missed step counts as 0.25 and";
+      html += "a complete missed connection as 1.00.'>conn</br>fail</th>";
+      html += "<th>versus<br/>points</th>";
+      html += "<th>battle<br/>points</th>";
+      html += "<th title='Mii names of players'>Mii name</th>";
+      html += "</tr>";
+      for (var j = 0; j < data[i].players.length; j++) {
+        html += "<tr class='tr" + (j % 2) + "'>";
+        html += "<td title='pid=" + data[i].players[j].pid + "'><a href='" + data[i].players[j].link + "'>" + data[i].players[j].friend_code + "</a>";
+        html += "<a href='" + data[i].players[j].link + "'><img src='" + data[i].players[j].image + "' class='text-img'></a></td>";
+        html += "<td align='left' title='num of races: " + data[i].players[j].races + "ol-status: " + data[i].players[j].status + "suspend: " + data[i].players[j].suspend + "'><span class='suspend'>&#8199;" + data[i].players[j].role + "</span></td>";
+        html += "<td>";
+        html += data[i].players[j].login + "<br/>" + data[i].players[j].region;
+		html += data[i].players[j].login + "<br/>" + data[i].players[j].region;
+html += "</td><td>" + data[i].players[j].room + ",<br/>" + data[i].players[j].match + "</td>";
+html += "<td>" + data[i].players[j].world + "</td>";
+html += "<td>" + data[i].players[j].conn_fail + "</td>";
+html += "<td>" + data[i].players[j].versus_points + "</td>";
+html += "<td>" + data[i].players[j].battle_points + "</td>";
+html += "<td>" + data[i].players[j].Mii_name + "</td>";
+html += "</tr>";
+}
+}
+$("#data").append(html);
+});
+});
+</script>
+
+</head>
+<body>
+<table id="data"></table>
+</body>
 </html>
