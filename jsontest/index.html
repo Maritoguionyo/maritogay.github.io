@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      function fetchData() {
+        fetch("http://stats.newwfc.xyz/json")
+          .then((response) => response.json())
+          .then((data) => {
+            var players = data.mariokartwii;
+            var vsPlayers = [];
+            var otherPlayers = [];
+            for (var i = 0; i < players.length; i++) {
+              if (players[i].rk === "vs") {
+                vsPlayers.push(players[i].dwc_pid);
+              } else {
+                otherPlayers.push(players[i].dwc_pid);
+              }
+            }
+            console.log("VS players: " + vsPlayers);
+            console.log("Other players: " + otherPlayers);
+          });
+      }
+    </script>
+  </head>
+  <body onload="fetchData()">
+  </body>
+</html>
