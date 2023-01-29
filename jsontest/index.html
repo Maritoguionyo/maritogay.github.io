@@ -8,15 +8,19 @@
           .then((data) => {
             var players = data.mariokartwii;
             var vsPlayers = [];
+            var friendRoomPlayers = [];
             var otherPlayers = [];
             for (var i = 0; i < players.length; i++) {
               if (players[i].rk === "vs") {
                 vsPlayers.push(players[i].dwc_pid);
+              } else if (players[i].dwc_mtype === "2") {
+                friendRoomPlayers.push(players[i].dwc_pid);
               } else {
                 otherPlayers.push(players[i].dwc_pid);
               }
             }
             console.log("VS players: " + vsPlayers);
+            console.log("Friend Room players: " + friendRoomPlayers);
             console.log("Other players: " + otherPlayers);
           });
       }
