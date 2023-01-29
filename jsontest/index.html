@@ -3,26 +3,22 @@
   <head>
     <script>
       function fetchData() {
-        var cors_api_url = 'http://cors-anywhere.herokuapp.com/';
-        var json_url = 'http://stats.newwfc.xyz/json';
-
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', cors_api_url + json_url, true);
-        xhr.onload = function () {
-          var data = JSON.parse(xhr.response);
-          var mariokartwii = data.mariokartwii;
-          var pids = [];
-          var rk = [];
-          for (var i = 0; i < mariokartwii.length; i++) {
-            pids.push(mariokartwii[i].dwc_pid);
-            if(mariokartwii[i].rk === 'vs'){
-              rk.push(mariokartwii[i].dwc_pid);
+        fetch("http://upgamers.ga:8080/http://stats.newwfc.xyz/json")
+          .then((response) => response.json())
+          .then((data) => {
+            var players = data.mariokartwii;
+            var vsPlayers = [];
+            var otherPlayers = [];
+            for (var i = 0; i < players.length; i++) {
+              if (players[i].rk === "vs") {
+                vsPlayers.push(players[i].dwc_pid);
+              } else {
+                otherPlayers.push(players[i].dwc_pid);
+              }
             }
-          }
-          console.log("Pids: ", pids);
-          console.log("VS Race players Pids: ", rk);
-        };
-        xhr.send();
+            console.log("VS players: " + vsPlayers);
+            console.log("Other players: " + otherPlayers);
+          });
       }
     </script>
   </head>
