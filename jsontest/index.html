@@ -22,28 +22,26 @@ $(document).ready(function(){
       html += "</tr>";
       for (var j = 0; j < data[i].players.length; j++) {
         html += "<tr class='tr" + (j % 2) + "'>";
-        html += "<td title='pid=" + data[i].players[j].pid + "'><a href='" + data[i].players[j].link + "'>" + data[i].players[j].friend_code + "</a>";
+        html += "<td title='pid=" + data[i].players[j].dwc_pid + "'><a href='" + data[i].players[j].link + "'>" + data[i].players[j].dwc_pid + "</a>";
         html += "<a href='" + data[i].players[j].link + "'><img src='" + data[i].players[j].image + "' class='text-img'></a></td>";
         html += "<td align='left' title='num of races: " + data[i].players[j].races + "ol-status: " + data[i].players[j].status + "suspend: " + data[i].players[j].suspend + "'><span class='suspend'>&#8199;" + data[i].players[j].role + "</span></td>";
-        html += "<td>";
-        html += data[i].players[j].login + "<br/>" + data[i].players[j].region;
-		html += data[i].players[j].login + "<br/>" + data[i].players[j].region;
-html += "</td><td>" + data[i].players[j].room + ",<br/>" + data[i].players[j].match + "</td>";
-html += "<td>" + data[i].players[j].world + "</td>";
-html += "<td>" + data[i].players[j].conn_fail + "</td>";
-html += "<td>" + data[i].players[j].versus_points + "</td>";
-html += "<td>" + data[i].players[j].battle_points + "</td>";
-html += "<td>" + data[i].players[j].Mii_name + "</td>";
+        html += "<td> unknown </td>";
+        html += "<html += "<td>" + data[i].players[j].dwc_groupid + "</td>";
+html += "<td>" + data[i].players[j].dwc_pid + "</td>";
+html += "<td>unknown</td>";
+html += "<td>" + data[i].players[j].ev + "</td>";
+html += "<td>" + data[i].players[j].eb + "</td>";
+html += "<td>not implemented yet</td>";
 html += "</tr>";
 }
-}
-$("#data").append(html);
+html += "</table>";
+$("#table").append(html);
 });
 });
 </script>
 
 </head>
 <body>
-<table id="data"></table>
+<table id="table" border="1"></table>
 </body>
 </html>
