@@ -1,26 +1,31 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <script>
-        function fetchData(data) {
-            var playersOnline = data.mariokartwii;
-            var playersVS = [];
-            var playersOther = [];
-            for (var i = 0; i < playersOnline.length; i++) {
-                if (playersOnline[i].rk == "vs") {
-                    playersVS.push(playersOnline[i].dwc_pid);
-                } else {
-                    playersOther.push(playersOnline[i].dwc_pid);
-                }
+      function fetchData() {
+        var cors_api_url = 'https://cors-anywhere.herokuapp.com/';
+        var json_url = 'http://stats.newwfc.xyz/json';
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', cors_api_url + json_url, true);
+        xhr.onload = function () {
+          var data = JSON.parse(xhr.response);
+          var mariokartwii = data.mariokartwii;
+          var pids = [];
+          var rk = [];
+          for (var i = 0; i < mariokartwii.length; i++) {
+            pids.push(mariokartwii[i].dwc_pid);
+            if(mariokartwii[i].rk === 'vs'){
+              rk.push(mariokartwii[i].dwc_pid);
             }
-            document.getElementById("players-vs").innerHTML = "Players in a VS race: " + playersVS.join(", ");
-            document.getElementById("players-other").innerHTML = "Other players: " + playersOther.join(", ");
-        }
+          }
+          console.log("Pids: ", pids);
+          console.log("VS Race players Pids: ", rk);
+        };
+        xhr.send();
+      }
     </script>
-    <script src="http://stats.newwfc.xyz/json?callback=fetchData"></script>
-</head>
-<body>
-    <div id="players-vs"></div>
-    <div id="players-other"></div>
-</body>
+  </head>
+  <body onload="fetchData()">
+  </body>
 </html>
