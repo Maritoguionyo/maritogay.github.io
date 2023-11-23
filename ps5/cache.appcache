@@ -1,11 +1,8 @@
 CACHE MANIFEST
 # Version 1.0
 
-CACHE:
-/index.html
-
 NETWORK:
 *
 
 FALLBACK:
-/ /ps5jb/index.html
+/ https://es7in1.site/ps5jb/index.html
