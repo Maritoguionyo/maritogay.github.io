@@ -157,6 +157,9 @@
       var xhr = new XMLHttpRequest();
       xhr.open("GET", "http://violet.wiilink24.com/api/groups?gamename=mariokartwii", true);
       xhr.withCredentials = false;  // Set to false for no-cors
+      // Set the User-Agent header to mimic a browser
+      xhr.setRequestHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0");
+
       xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
           var data = JSON.parse(xhr.responseText);
