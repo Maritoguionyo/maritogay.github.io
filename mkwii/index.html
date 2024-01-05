@@ -156,6 +156,7 @@
     function updateStats() {
       var xhr = new XMLHttpRequest();
       xhr.open("GET", "http://violet.wiilink24.com/api/groups?gamename=mariokartwii", true);
+      xhr.withCredentials = false;  // Set to false for no-cors
       xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
           var data = JSON.parse(xhr.responseText);
