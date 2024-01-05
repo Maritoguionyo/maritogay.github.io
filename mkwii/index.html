@@ -52,7 +52,7 @@
     }
 
     function PlayerCount(numplayers) {
-		var players = parseInt(numplayers, 10);
+		var players =  = Object.keys(numplayers).length; //parseInt(numplayers, 10);
 		if (isNaN(players)) {
 			players = 0; // Set players to 0 or handle the error case accordingly
 		}
