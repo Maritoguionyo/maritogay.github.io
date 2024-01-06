@@ -1,210 +1,223 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Mario Kart Wii Count</title>
-  <link rel="stylesheet" type="text/css" href="/mii-font.css">
-  <script src="md5.min.js"></script>
-  <style>
-    body {
-      background-color: #424549;
-      color: white;
-      text-align: left;
-      font-size: 20px;
-    }
-
-    .mii-font-box {
-        background-color: #313233; /* Slightly darker than the page background */
-        padding: 2px; /* Adjust padding as needed */
-        border-radius: 4px; /* Optional: Add rounded corners */
-        display: inline-block; /* Make it an inline block to wrap the content */
-    }
-
-
-    .mii-font {
-      font-family: 'MiiFont', 'dcRoboto', san-serif;
-    }
-  </style>
-  <script>
-
-
-    function playerStats(html, players, count) {
-
-        for (var i = 0; i < count; i++) {
-            
-        html += '<b>' + players[i].fc + ' Name: <span class="mii-font-box"><span class="mii-font">' + players[i].name + '</span></span> VR: ' + players[i].ev + ' BR: ' + players[i].eb + '</b><br>';
-
+    <title>Mario Kart Wii Count</title>
+    <link rel="stylesheet" type="text/css" href="mii-font.css">
+    <script src="md5.min.js"></script>
+    <style>
+        body {
+            background-color: #424549;
+            color: white;
+            text-align: left;
+            font-size: 20px;
         }
-        return html
-    }
 
-
-
-    function suspend(suspend) {
-
-        if (suspend === false) {
-
-            return ""
+        .mii-font-box {
+            background-color: #313233;
+            /* Slightly darker than the page background */
+            padding: 2px;
+            /* Adjust padding as needed */
+            border-radius: 4px;
+            /* Optional: Add rounded corners */
+            display: inline-block;
+            /* Make it an inline block to wrap the content */
         }
-        if (suspend === true) {
-            return " | VOTING TRACKS"
+
+
+        .mii-font {
+            font-family: 'MiiFont', 'dcRoboto', san-serif;
         }
-        return
-    }
-
-    function PlayerCount(numplayers) {
-		var players = Object.keys(numplayers).length; //parseInt(numplayers, 10);
-		if (isNaN(players)) {
-			players = 0; // Set players to 0 or handle the error case accordingly
-		}
-		 if (players === 0) {
-		return "wot no players??"; //"No players";
-		}		
-		players = (players) | 0; // + 1) | 0; // Ensure the result stays within the 32-bit integer range
-		return players;//"Players: " + players;
-		}
-
-	function regions(html, items, count) {
-		
-		for (var i = 0; i < count; i++) {
-		if(items[i].rk === "bt"){
-              html += "<b>Room ID: " + items[i].id + " "+  "</b>: WorldWide Battles " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) +")<br><br>";
-            }
-            else if(items[i].rk === "bt_0"){
-              html += "<b>Room ID: " + items[i].id + " "+  "</b>: Japan Regional Battles " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) +")<br><br>";
-            }
-            else if(items[i].rk === "bt_1"){
-              html += "<b>Room ID: " + items[i].id + " "+  "</b>: NA Regional Battles " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) +")<br><br>";
-            }
-            else if(items[i].rk === "bt_2"){
-              html += "<b>Room ID: " + items[i].id + " "+  "</b>: European Regional Battles " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) +")<br><br>";
-            }
-            else if(items[i].rk === "bt_3"){
-              html += "<b>Room ID: " + items[i].id + " "+  "</b>: AU & NZ Regional Battles " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) +")<br><br>";
-            }
-            else if(items[i].rk === "bt_4"){
-              html += "<b>Room ID: " + items[i].id + " "+  "</b>: Taiwan Regional Battles " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) +")<br><br>";
-            }
-            else if(items[i].rk === "bt_5"){
-              html += "<b>Room ID: " + items[i].id + " "+  "</b>: South Korea Regional Battles " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) +")<br><br>";
-            }
-            else if(items[i].rk === "bt_6"){
-              html += "<b>Room ID: " + items[i].id + " "+  "</b>: China Regional Battles " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) +")<br><br>";
-            }
-            
-            else if(items[i].rk === "vs"){
-              html += "<b>Room ID: " + items[i].id + " "+  "</b>: WorldWide Versus " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) +")<br><br>";
-            }
-            else if(items[i].rk === "vs_0"){
-              html += "<b>Room ID: " + items[i].id + " "+  "</b>: Japan Regional Versus " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) +")<br><br>";
-            }
-            else if(items[i].rk === "vs_1"){
-              html += "<b>Room ID: " + items[i].id + " "+  "</b>: NA Regional Versus " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) +")<br><br>";
-            }
-            else if(items[i].rk === "vs_2"){
-              html += "<b>Room ID: " + items[i].id + " "+  "</b>: European Regional Versus " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) +")<br><br>";
-            }
-            else if(items[i].rk === "vs_3"){
-              html += "<b>Room ID: " + items[i].id + " "+  "</b>: AU & NZ Regional Versus " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) +")<br><br>";
-            }
-            else if(items[i].rk === "vs_4"){
-              html += "<b>Room ID: " + items[i].id + " "+  "</b>: Taiwan Regional Versus " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) +")<br><br>";
-            }
-            else if(items[i].rk === "vs_5"){
-              html += "<b>Room ID: " + items[i].id + " "+  "</b>: South Korea Regional Versus " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) +")<br><br>";
-            }
-            else if(items[i].rk === "vs_6"){
-              html += "<b>Room ID: " + items[i].id + " "+  "</b>: China Regional Versus " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) +")<br><br>";
-            }
-			else if(items[i].rk === "vs_22"){
-              html += "<b>Room ID: " + items[i].id + " "+  "</b>: CTGP-R 1.03.1044 VS " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) +")<br><br>";
-            }
-			else if(items[i].rk === "cd_22"){
-              html += "<b>Room ID: " + items[i].id + " "+  "</b>: CTGP-R 1.03.1044 Countdown " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) +")<br><br>";
-            }
-			else if(items[i].rk === "vs_205"){
-              html += "<b>Room ID: " + items[i].id + " "+  "</b>: MKW Deluxe Versus (vs_205) Opponents: " + items[i].numplayers + ") <br><br>";
-            }
-			else if(items[i].rk === "bt_205"){
-              html += "<b>Room ID: " + items[i].id + " "+  "</b>: MKW Deluxe Battle (bt_205) Opponents: " + items[i].numplayers + ") <br><br>";
-            }
-						
-            else if(items[i].rk){
-              html += "<b>Room ID: " + items[i].id + " "+  "</b>: Unknown Region: " + items[i].rk + " (VR: " + items[i].ev + ") " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) +")<br><br>";
-            
-            }else{
-              if(items[i].dwc_mtype === "0"){
-                html += "<b>Room ID: " + items[i].id + " "+  "</b>: Player is online <br><br>";
-              }else if(items[i].dwc_mtype === "2"){
-                html += "<b>Room ID: " + items[i].id + " "+  "</b>: Hosting a Friend Room (" + ")<br><br>";
-              }else if(items[i].dwc_mtype === "3"){
-                html += "<b>Room ID: " + items[i].id + " "+  "</b>: In a Friend Room (" + ")<br><br>";
-              }else{
-                html += "<b>Room ID: " + items[i].id + " "+  "</b>: Player is not in a match<br><br>";
-              }
-            }
-
-            html = playerStats(html, items[i].players, Object.keys(items[i].players).length, );//items[i].players.length, );
-			}
-
-            
-
-			return html;
-	}
+    </style>
+    <script>
 
 
+        function playerStats(html, players, count) {
+            var offset = 0;
+            var offsetvalue = 0;
+            for (var i = 0; i < count; i++) {
+                offsetvalue = i + offset;
+                console.log(players[offsetvalue])
+                while (players[offsetvalue] === undefined) {
+                    offset = offset + 1;
+                    offsetvalue = i + offset;
+                }
+                html += '<b>' + [i + offset + 1] + ': ' + players[i + offset].fc + ' Name: <span class="mii-font-box"><span class="mii-font">' + players[i + offset].name + '</span></span> VR: ' + players[i + offset].ev + ' BR: ' + players[i + offset].eb + '</b><br>';
 
-    function updateStats() {
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", "http://violet.wiilink24.com/api/groups?gamename=mariokartwii", true);
-      //xhr.withCredentials = false;  // Set to false for no-cors
-      // Set the User-Agent header to mimic a browser
-      //xhr.setRequestHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0");
-      // Set the 'Origin' header
-      //xhr.setRequestHeader("Origin", "http://violet.wiilink24.com");
-
-      // Set the 'Referer' header
-      //xhr.setRequestHeader("Referer", "http://violet.wiilink24.com");
-
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          var data = JSON.parse(xhr.responseText);
-          var count = data ? data.length : 0;
-          var items = data || [];
-          
-          var html = "<b>auto refresh every 10 seconds</b><br>";
-
-          if (count === 0) {
-            html += "<br><b>There are no rooms currently:</b><br>";
-          }
-
-          for (var i = 0; i < count; i++) {
-            html += "<br> "//items[i].id + "<br>" //"<br><b>Room: " + items[i].id
-            html = regions(html, items, items.length);
-                //// look at end of regions function //html = playerStats(html, items[i], items.length);
-          }
-
-          document.getElementById("result").innerHTML = html;
+            }
+            return html
         }
-      };
 
-      xhr.send();
-    }
 
-    updateStats();
 
-    setInterval(updateStats, 10000);
-  </script>
+        function suspend(suspend) {
 
-  <style>
-    body {
-      background-color: #424549;
-      color: white;
-      text-align: left;
-      font-size: 20px;
-    }
-  </style>
+            if (suspend === false) {
+
+                return ""
+            }
+            if (suspend === true) {
+                return " | VOTING TRACKS"
+            }
+            return
+        }
+
+        function PlayerCount(numplayers) {
+            var players = Object.keys(numplayers).length; //parseInt(numplayers, 10);
+            if (isNaN(players)) {
+                players = 0; // Set players to 0 or handle the error case accordingly
+            }
+            if (players === 0) {
+                return "wot no players??"; //"No players";
+            }
+            players = (players) | 0; // + 1) | 0; // Ensure the result stays within the 32-bit integer range
+            return players;//"Players: " + players;
+        }
+
+        function regions(html, items, count) {
+
+            for (var i = 0; i < count; i++) {
+                if (items[i].rk === "bt") {
+                    html += "<b>Room ID: " + items[i].id + " " + "</b>: WorldWide Battles " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) + ")<br><br>";
+                }
+                else if (items[i].rk === "bt_0") {
+                    html += "<b>Room ID: " + items[i].id + " " + "</b>: Japan Regional Battles " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) + ")<br><br>";
+                }
+                else if (items[i].rk === "bt_1") {
+                    html += "<b>Room ID: " + items[i].id + " " + "</b>: NA Regional Battles " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) + ")<br><br>";
+                }
+                else if (items[i].rk === "bt_2") {
+                    html += "<b>Room ID: " + items[i].id + " " + "</b>: European Regional Battles " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) + ")<br><br>";
+                }
+                else if (items[i].rk === "bt_3") {
+                    html += "<b>Room ID: " + items[i].id + " " + "</b>: AU & NZ Regional Battles " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) + ")<br><br>";
+                }
+                else if (items[i].rk === "bt_4") {
+                    html += "<b>Room ID: " + items[i].id + " " + "</b>: Taiwan Regional Battles " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) + ")<br><br>";
+                }
+                else if (items[i].rk === "bt_5") {
+                    html += "<b>Room ID: " + items[i].id + " " + "</b>: South Korea Regional Battles " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) + ")<br><br>";
+                }
+                else if (items[i].rk === "bt_6") {
+                    html += "<b>Room ID: " + items[i].id + " " + "</b>: China Regional Battles " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) + ")<br><br>";
+                }
+
+                else if (items[i].rk === "vs") {
+                    html += "<b>Room ID: " + items[i].id + " " + "</b>: WorldWide Versus " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) + ")<br><br>";
+                }
+                else if (items[i].rk === "vs_0") {
+                    html += "<b>Room ID: " + items[i].id + " " + "</b>: Japan Regional Versus " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) + ")<br><br>";
+                }
+                else if (items[i].rk === "vs_1") {
+                    html += "<b>Room ID: " + items[i].id + " " + "</b>: NA Regional Versus " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) + ")<br><br>";
+                }
+                else if (items[i].rk === "vs_2") {
+                    html += "<b>Room ID: " + items[i].id + " " + "</b>: European Regional Versus " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) + ")<br><br>";
+                }
+                else if (items[i].rk === "vs_3") {
+                    html += "<b>Room ID: " + items[i].id + " " + "</b>: AU & NZ Regional Versus " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) + ")<br><br>";
+                }
+                else if (items[i].rk === "vs_4") {
+                    html += "<b>Room ID: " + items[i].id + " " + "</b>: Taiwan Regional Versus " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) + ")<br><br>";
+                }
+                else if (items[i].rk === "vs_5") {
+                    html += "<b>Room ID: " + items[i].id + " " + "</b>: South Korea Regional Versus " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) + ")<br><br>";
+                }
+                else if (items[i].rk === "vs_6") {
+                    html += "<b>Room ID: " + items[i].id + " " + "</b>: China Regional Versus " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) + ")<br><br>";
+                }
+                else if (items[i].rk === "vs_22") {
+                    html += "<b>Room ID: " + items[i].id + " " + "</b>: CTGP-R 1.03.1044 VS " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) + ")<br><br>";
+                }
+                else if (items[i].rk === "cd_22") {
+                    html += "<b>Room ID: " + items[i].id + " " + "</b>: CTGP-R 1.03.1044 Countdown " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) + ")<br><br>";
+                }
+                else if (items[i].rk === "vs_205") {
+                    html += "<b>Room ID: " + items[i].id + " " + "</b>: MKW Deluxe Versus (vs_205) Opponents: " + items[i].numplayers + ") <br><br>";
+                }
+                else if (items[i].rk === "bt_205") {
+                    html += "<b>Room ID: " + items[i].id + " " + "</b>: MKW Deluxe Battle (bt_205) Opponents: " + items[i].numplayers + ") <br><br>";
+                }
+
+                else if (items[i].rk) {
+                    html += "<b>Room ID: " + items[i].id + " " + "</b>: Unknown Region: " + items[i].rk + " (VR: " + items[i].ev + ") " + "(Players: " + PlayerCount(items[i].players) + suspend(items[i].suspend) + ")<br><br>";
+
+                } else {
+                    if (items[i].dwc_mtype === "0") {
+                        html += "<b>Room ID: " + items[i].id + " " + "</b>: Player is online <br><br>";
+                    } else if (items[i].dwc_mtype === "2") {
+                        html += "<b>Room ID: " + items[i].id + " " + "</b>: Hosting a Friend Room (" + ")<br><br>";
+                    } else if (items[i].dwc_mtype === "3") {
+                        html += "<b>Room ID: " + items[i].id + " " + "</b>: In a Friend Room (" + ")<br><br>";
+                    } else {
+                        html += "<b>Room ID: " + items[i].id + " " + "</b>: Player is not in a match<br><br>";
+                    }
+                }
+
+                html = playerStats(html, items[i].players, Object.keys(items[i].players).length,);//items[i].players.length, );
+            }
+
+
+
+            return html;
+        }
+
+
+
+        function updateStats() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "http://violet.wiilink24.com/api/groups?gamename=mariokartwii", true);
+            //xhr.withCredentials = false;  // Set to false for no-cors
+            // Set the User-Agent header to mimic a browser
+            //xhr.setRequestHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0");
+            // Set the 'Origin' header
+            //xhr.setRequestHeader("Origin", "http://violet.wiilink24.com");
+
+            // Set the 'Referer' header
+            //xhr.setRequestHeader("Referer", "http://violet.wiilink24.com");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var data = JSON.parse(xhr.responseText);
+                    var count = data ? data.length : 0;
+                    var items = data || [];
+
+                    var html = "<b>auto refresh every 10 seconds</b><br>";
+
+                    if (count === 0) {
+                        html += "<br><b>There are no rooms currently:</b><br>";
+                    }
+
+                    for (var i = 0; i < count; i++) {
+                        html += "<br> "//items[i].id + "<br>" //"<br><b>Room: " + items[i].id
+                        html = regions(html, items, items.length);
+                        //// look at end of regions function //html = playerStats(html, items[i], items.length);
+                    }
+
+                    document.getElementById("result").innerHTML = html;
+                }
+            };
+
+            xhr.send();
+        }
+
+        updateStats();
+
+        setInterval(updateStats, 10000);
+    </script>
+
+    <style>
+        body {
+            background-color: #424549;
+            color: white;
+            text-align: left;
+            font-size: 20px;
+        }
+    </style>
 </head>
+
 <body>
-  <div id="result"></div>
+    <div id="result"></div>
 </body>
+
 </html>
